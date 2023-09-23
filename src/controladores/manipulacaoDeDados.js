@@ -77,7 +77,7 @@ const atualizarDados = (req, res) => {
         contaAlvo.usuario.senha = senha;
     }
 
-    return res.status(201).json();
+    return res.status(200).json();
 }
 
 const excluirConta = (req, res) => {
@@ -95,15 +95,12 @@ const excluirConta = (req, res) => {
         return res.status(404).json({ mensagem: 'Conta inexistente' })
     }
     if (contaAlvo.saldo !== 0) {
-        return res.status(401).json({ mensagem: 'Não é possível excluir a conta, devido a presença de fundos' })
+        return res.status(400).json({ mensagem: 'Não é possível excluir a conta, devido a presença de fundos' })
     }
     //*//
     contas = contas.filter((conta) => {
         return conta.numero !== +numero_conta;
     });
-
-    console.log(contas === contas);
-
 
     return res.json();
 }
